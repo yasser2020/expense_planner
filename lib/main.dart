@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import './transaction.dart';
+import 'package:intl/intl_browser.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,30 +18,82 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  final List<Transaction> transactions = [
+    Transaction(
+        id: 't1', title: 'New Shoes', amount: 69.9, date: DateTime.now()),
+    Transaction(
+        id: 't2',
+        title: 'Weekly Groceris',
+        amount: 16.63,
+        date: DateTime.now()),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        appBar: AppBar(title: Text('Flutter App')),
-        body: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              
-              child: Card(
-                child: Text("Chart"),
-                color: Colors.blue,
-              ),
+    return Scaffold(
+      appBar: AppBar(title: Text('Flutter App')),
+      body: Column(
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            width: double.infinity,
+            child: Card(
+              child: Text("Chart"),
+              color: Colors.blue,
+              elevation: 5,
             ),
-            Card(
-              child: Text("List of TX"),
-            )
-          ],
-        ),
-      )
-    ;
+          ),
+          Card(
+            elevation: 5,
+            child: Column(
+              children: [
+                TextField(),
+                TextField()
+              ],
+            ),
+          ),
+          Column(
+            children: transactions.map((tx) {
+              return Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 2, color: Colors.purple)),
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      '\$${tx.amount}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.purple,
+                      ),
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tx.title,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.blueAccent),
+                      ),
+                      Text(DateFormat.yMMMMd().format(tx.date),style:TextStyle(
+                       
+                        color: Colors.grey,
+                      ))
+                    ],
+                  )
+                ],
+              );
+            }).toList(),
+          )
+        ],
+      ),
+    );
   }
 }
