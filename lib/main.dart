@@ -1,7 +1,6 @@
+import 'package:expense_planner/widgets/user_transctions.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import './transaction.dart';
-import 'package:intl/intl_browser.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -19,15 +18,8 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  final List<Transaction> transactions = [
-    Transaction(
-        id: 't1', title: 'New Shoes', amount: 69.9, date: DateTime.now()),
-    Transaction(
-        id: 't2',
-        title: 'Weekly Groceris',
-        amount: 16.63,
-        date: DateTime.now()),
-  ];
+  // String? inputTitle;
+  // String? inputAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -45,60 +37,8 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ),
           ),
-          Card(
-            elevation: 5,
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  TextField(decoration: InputDecoration(labelText: 'Title')),
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Amount'),
-                  ),
-                  FlatButton(onPressed:() {}, child: Text("Add Transcation"),textColor: Colors.purple,)
-                ],
-              ),
-            ),
-          ),
-          Column(
-            children: transactions.map((tx) {
-              return Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 2, color: Colors.purple)),
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      '\$${tx.amount}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Colors.purple,
-                      ),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tx.title,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Colors.blueAccent),
-                      ),
-                      Text(DateFormat.yMMMMd().format(tx.date),
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ))
-                    ],
-                  )
-                ],
-              );
-            }).toList(),
-          )
+          UserTransactions(),
+          
         ],
       ),
     );
