@@ -47,11 +47,18 @@ class MyHomePage extends StatelessWidget {
           ),
           Card(
             elevation: 5,
-            child: Column(
-              children: [
-                TextField(),
-                TextField()
-              ],
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TextField(decoration: InputDecoration(labelText: 'Title')),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Amount'),
+                  ),
+                  FlatButton(onPressed:() {}, child: Text("Add Transcation"),textColor: Colors.purple,)
+                ],
+              ),
             ),
           ),
           Column(
@@ -82,10 +89,10 @@ class MyHomePage extends StatelessWidget {
                             fontSize: 16,
                             color: Colors.blueAccent),
                       ),
-                      Text(DateFormat.yMMMMd().format(tx.date),style:TextStyle(
-                       
-                        color: Colors.grey,
-                      ))
+                      Text(DateFormat.yMMMMd().format(tx.date),
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ))
                     ],
                   )
                 ],
