@@ -37,7 +37,7 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ),
           ),
-          SingleChildScrollView(child: UserTransactions()),
+          UserTransactions(),
           
         ],
       ),
