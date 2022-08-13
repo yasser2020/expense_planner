@@ -15,7 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.red, accentColor: Colors.amber),
+      theme: ThemeData(
+          primarySwatch: Colors.red,
+          accentColor: Colors.amber,
+          textTheme: ThemeData.light()
+              .textTheme
+              .copyWith(button: TextStyle(color: Colors.white))),
       home: MyHomePage(),
     );
   }
@@ -47,14 +52,21 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txttitle, double txtamount) {
+  void _addNewTransaction(
+      String txttitle, double txtamount, DateTime chosendate) {
     final newTx = Transaction(
         id: DateTime.now().toString(),
         title: txttitle,
         amount: txtamount,
-        date: DateTime.now());
+        date: chosendate);
     setState(() {
       _userTranscations.add(newTx);
+    });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTranscations.removeWhere((tx) => tx.id == id);
     });
   }
 
@@ -74,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
+        title: Text('Personal Expenses'),
         actions: [
           IconButton(
               onPressed: () => _startAddNewTransaction(context),
@@ -89,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Chart(_recentTransactions),
-          TransactionList(_userTranscations),
+          TransactionList(_userTranscations, _deleteTransaction),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
